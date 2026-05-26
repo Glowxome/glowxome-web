@@ -141,7 +141,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
         <div className="flex flex-col items-center group order-2 lg:order-1 pt-12 lg:pt-0 lg:-mt-56">
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-teal-500/20 blur-[100px] rounded-full scale-150 animate-pulse" />
-            <img src="/Keny.png" alt="Keny" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(45,212,191,0.3)]" />
+            <img src="/keny.png" alt="Keny" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(45,212,191,0.3)]" />
           </div>
           <h2 className="text-3xl font-bold tracking-widest text-teal-400 mb-2">KENY</h2>
           <p className="text-[10px] text-teal-200/40 uppercase tracking-[0.4em] mb-6">Gardien de l'Équilibre</p>
