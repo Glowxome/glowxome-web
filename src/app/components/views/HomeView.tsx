@@ -12,10 +12,10 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
   return (
     <>
       {/* HEADER SACRÉ */}
-      <header className="relative pt-44 pb-20 text-center z-10">
-        <h1 className="text-8xl md:text-9xl font-bold tracking-[0.15em] mb-4 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] animate-pulse">
-          GLOWXOME
-        </h1>
+      <header className="relative pt-24 lg:pt-44 pb-20 text-center z-10">
+  <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.15em] mb-4 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] animate-pulse">
+    GLOWXOME
+  </h1>
         <p className="text-amber-700/60 font-montserrat tracking-[1em] uppercase text-sm mb-12">
           LE RÉVEIL COMMENCE
         </p>
@@ -141,7 +141,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
         <div className="flex flex-col items-center group order-2 lg:order-1 pt-12 lg:pt-0 lg:-mt-56">
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-teal-500/20 blur-[100px] rounded-full scale-150 animate-pulse" />
-            <img src="/keny.png" alt="Keny" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(45,212,191,0.3)]" />
+            <img src="/Keny.png" alt="Keny" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(45,212,191,0.3)]" />
           </div>
           <h2 className="text-3xl font-bold tracking-widest text-teal-400 mb-2">KENY</h2>
           <p className="text-[10px] text-teal-200/40 uppercase tracking-[0.4em] mb-6">Gardien de l'Équilibre</p>
