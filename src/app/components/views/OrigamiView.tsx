@@ -21,10 +21,12 @@ interface OrigamiModel {
 }
  
 interface OrigamiViewProps {
-  setCurrentTab: (tab: string) => void;
+  setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
+  isSynchronizing: boolean;
+  syncComplete: boolean;
 }
  
-export default function OrigamiView({ setCurrentTab }: OrigamiViewProps) {
+export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComplete }: OrigamiViewProps) {
   const origamiModels: OrigamiModel[] = [
     {
       id: "carie-challenger",
