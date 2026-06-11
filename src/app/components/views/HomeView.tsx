@@ -13,9 +13,9 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
     <>
       {/* HEADER SACRÉ */}
       <header className="relative pt-24 lg:pt-44 pb-20 text-center z-10">
-  <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.15em] mb-4 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] animate-pulse">
-    GLOWXOME
-  </h1>
+        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-[0.15em] mb-4 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] animate-pulse">
+          GLOWXOME
+        </h1>
         <p className="text-amber-700/60 font-montserrat tracking-[1em] uppercase text-sm mb-12">
           LE RÉVEIL COMMENCE
         </p>
@@ -27,7 +27,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             {/* PORTAIL KICKSTARTER GAUCHE */}
             <div className="flex-shrink-0 lg:mt-12">
               <a 
-                href="[https://www.kickstarter.com](https://www.kickstarter.com)" 
+                href="https://www.kickstarter.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-36 h-36 xl:w-44 xl:h-44 group hover:scale-105 active:scale-95 transition-all duration-300 animate-slide-left-loop pause-on-hover block relative"
@@ -76,32 +76,24 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
                     <p className="text-[10px] text-amber-500 uppercase tracking-widest mb-1">Présentation</p>
                     <h3 className="text-lg font-bold text-white">L'Éveil de Glowxome</h3>
                   </div>
-                  <a 
-                    href="[https://www.youtube.com](https://www.youtube.com)"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center text-black hover:scale-110 transition-transform duration-300"
-                  >
+                  <div className="w-12 h-12 rounded-full bg-amber-500 flex items-center justify-center text-black hover:scale-110 transition-transform duration-300">
                      <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
-                  </a>
+                  </div>
                 </div>
               </div>
 
-              <a 
-                href="/presentation.mp4"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button 
+                onClick={() => setCurrentTab('home')}
                 className="px-10 py-4 bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 rounded-full text-black font-bold uppercase tracking-[0.2em] text-xs hover:scale-105 transition-all duration-500 shadow-[0_0_30px_rgba(245,158,11,0.4)] text-center inline-block"
               >
                 Devenez un Glow
-              </a>
+              </button>
             </div>
 
             {/* PORTAIL KICKSTARTER DROIT */}
             <div className="flex-shrink-0 lg:mt-12">
               <a 
-                href="[https://www.kickstarter.com](https://www.kickstarter.com)" 
+                href="https://www.kickstarter.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-36 h-36 xl:w-44 xl:h-44 group hover:scale-105 active:scale-95 transition-all duration-300 animate-slide-right-loop pause-on-hover block relative"
@@ -116,19 +108,6 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
                   <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 to-transparent z-0 group-hover:from-amber-500/10 transition-all duration-500" />
                 </div>
               </a>
-            </div>
-
-          </div>
-
-          {/* CONFIGURATION MOBILE */}
-          <div className="lg:hidden flex flex-col items-center gap-10 relative z-30">
-            <p className="text-amber-50 font-montserrat text-[11px] uppercase tracking-[0.2em] leading-relaxed px-4 text-center">
-              Le système vous surveille. Keny et Béguy infiltrent la matrice...
-            </p>
-            <div onClick={() => setIsMuted(!isMuted)} className="w-full max-w-sm aspect-[16/9] bg-stone-900 rounded-3xl overflow-hidden border border-white/5 relative cursor-pointer px-4">
-              <video autoPlay muted={isMuted} loop playsInline className="w-full h-full object-cover scale-[1.15] brightness-75">
-                <source src="/presentation.mp4" type="video/mp4" />
-              </video>
             </div>
           </div>
         </div>
@@ -179,13 +158,14 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
                 <source src="/origami.mp4" type="video/mp4" />
               </video>
             </div>
-            <a 
-              href="/origami.mp4"
-              target="_blank"
-              className="px-6 py-2.5 bg-black/40 backdrop-blur-md border border-amber-500/30 text-amber-500 text-[10px] uppercase tracking-widest rounded-full hover:bg-amber-500 hover:text-black transition-all duration-500 text-center"
+            {/* BOUTON LIAISON ORIGAMI */}
+            <button 
+              type="button"
+              onClick={() => setCurrentTab('origami')}
+              className="px-6 py-2.5 bg-black/40 backdrop-blur-md border border-amber-500/30 text-amber-500 text-[10px] uppercase tracking-widest rounded-full hover:bg-amber-500 hover:text-black transition-all duration-500 text-center cursor-pointer"
             >
               Explorer nos glow-Origamis
-            </a>
+            </button>
           </div>
         </div>
 
@@ -201,7 +181,6 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             Béguy perçoit les vibrations des onze dimensions avant même qu'elles ne se manifestent. Sa maîtrise de l'Oracle du Flux lui permet de manipuler les brèches temporelles.
           </p>
         </div>
-
       </section>
 
       {/* SECTION DIMENSIONS */}
