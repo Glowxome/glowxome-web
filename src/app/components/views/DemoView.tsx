@@ -60,32 +60,30 @@ export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: strin
         <div className="mt-5 mx-auto w-16 h-px bg-amber-500/30" />
       </div>
  
-      {/* Tab nav */}
-      <div className="flex justify-center mb-12">
-        <div className="relative flex gap-0 border border-amber-500/20 rounded-sm overflow-hidden">
-          {TABS.map((tab) => {
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`relative px-7 py-3 text-xs tracking-[0.25em] uppercase transition-all duration-300 ${
-                  isActive
-                    ? 'text-stone-950 bg-amber-500'
-                    : 'text-amber-500/60 bg-transparent hover:text-amber-400 hover:bg-amber-500/8'
-                }`}
-              >
-                <span className="mr-2 opacity-70">{tab.icon}</span>
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
- 
-      {/* Tab content */}
-      <div className="flex-1">
- 
+     {/* Tab nav */}
+<div className="flex justify-center mb-12 px-4">
+  {/* AJOUTEZ 'flex-wrap' ICI */}
+  <div className="relative flex flex-wrap justify-center gap-1 border border-amber-500/20 rounded-sm overflow-hidden">
+    {TABS.map((tab) => {
+      const isActive = activeTab === tab.id;
+      return (
+        <button
+          key={tab.id}
+          onClick={() => setActiveTab(tab.id)}
+          className={`relative px-4 sm:px-7 py-3 text-xs tracking-[0.25em] uppercase transition-all duration-300 ${
+            isActive
+              ? 'text-stone-950 bg-amber-500'
+              : 'text-amber-500/60 bg-transparent hover:text-amber-400 hover:bg-amber-500/8'
+          }`}
+        >
+          <span className="mr-2 opacity-70 hidden sm:inline">{tab.icon}</span>
+          {tab.label}
+        </button>
+      );
+    })}
+  </div>
+</div>
+
         {/* ── ÉVOLUTION DU JEU ── */}
         {activeTab === 'game' && (
           <div className="animate-fade-in">
