@@ -1,4 +1,5 @@
 "use client";
+ 
 import React, { useState, useRef } from 'react';
  
 interface OrigamiModel {
@@ -24,9 +25,16 @@ interface OrigamiViewProps {
   setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
   isSynchronizing: boolean;
   syncComplete: boolean;
+  triggerSync: () => void;
 }
  
-export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComplete }: OrigamiViewProps) {
+export default function OrigamiView({
+  setCurrentTab,
+  isSynchronizing,
+  syncComplete,
+  triggerSync,
+}: OrigamiViewProps) {
+ 
   const origamiModels: OrigamiModel[] = [
     {
       id: "carie-challenger",
@@ -116,7 +124,13 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
     setTimeout(() => {
       setIsScanning(false);
       const s = activeOrigami.scenarios[selectedScenario];
-      setScanResult({ score: s.score, status: s.status, fluxAwarded: s.flux, details: { occlusion: s.occlusion, alignment: s.alignment }, comment: s.comment });
+      setScanResult({
+        score: s.score,
+        status: s.status,
+        fluxAwarded: s.flux,
+        details: { occlusion: s.occlusion, alignment: s.alignment },
+        comment: s.comment,
+      });
     }, 2800);
   };
  
@@ -126,12 +140,19 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
     setCameraError(null);
     const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
     if (isMobile) { cameraInputRef.current?.click(); return; }
-    if (!navigator.mediaDevices?.getUserMedia) { setCameraError("Votre navigateur ne supporte pas l'accès à la caméra."); return; }
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setCameraError("Votre navigateur ne supporte pas l'accès à la caméra.");
+      return;
+    }
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } } });
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+      });
       setStream(mediaStream);
       setShowCameraModal(true);
-      setTimeout(() => { if (videoRef.current) { videoRef.current.srcObject = mediaStream; videoRef.current.play(); } }, 150);
+      setTimeout(() => {
+        if (videoRef.current) { videoRef.current.srcObject = mediaStream; videoRef.current.play(); }
+      }, 150);
     } catch (err: any) {
       if (err.name === 'NotAllowedError') setCameraError("Permission caméra refusée. Autorisez l'accès dans les paramètres du navigateur.");
       else if (err.name === 'NotFoundError') setCameraError("Aucune caméra détectée sur cet appareil.");
@@ -172,49 +193,37 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
           background-color: #020406 !important;
           color: #e2e8f0 !important;
         }
- 
-        /* Fluid typography : clamp(min, preferred, max) */
-        .title-fluid       { font-size: clamp(2rem, 8vw, 9rem); }
-        .subtitle-fluid    { font-size: clamp(0.6rem, 1.2vw, 0.875rem); letter-spacing: clamp(0.3em, 1vw, 1em); }
-        .label-fluid       { font-size: clamp(0.55rem, 0.9vw, 0.7rem); }
-        .body-fluid        { font-size: clamp(0.7rem, 1vw, 0.875rem); }
-        .caption-fluid     { font-size: clamp(0.55rem, 0.8vw, 0.7rem); }
-        .heading-fluid     { font-size: clamp(0.75rem, 1.2vw, 1rem); }
-        .scan-heading-fluid{ font-size: clamp(0.85rem, 1.5vw, 1.25rem); }
-        .result-flux-fluid { font-size: clamp(0.85rem, 1.3vw, 1rem); }
- 
-        /* Card heights adapt to viewport */
-        .preview-card      { height: clamp(280px, 45vw, 500px); }
- 
-        /* Scan zone aspect ratio preserved on all screens */
-        .scan-zone         { aspect-ratio: 4/3; min-height: 160px; max-height: 420px; }
- 
-        /* TV / large screens (≥1920px) */
+        .title-fluid        { font-size: clamp(2rem, 8vw, 9rem); }
+        .subtitle-fluid     { font-size: clamp(0.6rem, 1.2vw, 0.875rem); letter-spacing: clamp(0.3em, 1vw, 1em); }
+        .label-fluid        { font-size: clamp(0.55rem, 0.9vw, 0.7rem); }
+        .body-fluid         { font-size: clamp(0.7rem, 1vw, 0.875rem); }
+        .caption-fluid      { font-size: clamp(0.55rem, 0.8vw, 0.7rem); }
+        .heading-fluid      { font-size: clamp(0.75rem, 1.2vw, 1rem); }
+        .scan-heading-fluid { font-size: clamp(0.85rem, 1.5vw, 1.25rem); }
+        .result-flux-fluid  { font-size: clamp(0.85rem, 1.3vw, 1rem); }
+        .preview-card       { height: clamp(280px, 45vw, 500px); }
+        .scan-zone          { aspect-ratio: 4/3; min-height: 160px; max-height: 420px; }
         @media (min-width: 1920px) {
-          .title-fluid       { font-size: clamp(7rem, 6vw, 11rem); }
-          .subtitle-fluid    { font-size: 1.05rem; letter-spacing: 1.2em; }
-          .body-fluid        { font-size: 1rem; }
-          .caption-fluid     { font-size: 0.8rem; }
-          .heading-fluid     { font-size: 1.1rem; }
-          .scan-heading-fluid{ font-size: 1.6rem; }
-          .result-flux-fluid { font-size: 1.2rem; }
-          .preview-card      { height: clamp(480px, 32vw, 700px); }
-          .scan-zone         { max-height: 560px; }
-          .max-w-tv          { max-width: 1600px; }
+          .title-fluid        { font-size: clamp(7rem, 6vw, 11rem); }
+          .subtitle-fluid     { font-size: 1.05rem; letter-spacing: 1.2em; }
+          .body-fluid         { font-size: 1rem; }
+          .caption-fluid      { font-size: 0.8rem; }
+          .heading-fluid      { font-size: 1.1rem; }
+          .scan-heading-fluid { font-size: 1.6rem; }
+          .result-flux-fluid  { font-size: 1.2rem; }
+          .preview-card       { height: clamp(480px, 32vw, 700px); }
+          .scan-zone          { max-height: 560px; }
+          .max-w-tv           { max-width: 1600px; }
         }
- 
-        /* Tablet portrait (640–1023px) */
         @media (min-width: 640px) and (max-width: 1023px) {
           .preview-card { height: clamp(300px, 50vw, 420px); }
           .scan-zone    { max-height: 340px; }
         }
- 
-        /* Phone (< 640px) */
         @media (max-width: 639px) {
-          .preview-card       { height: clamp(240px, 70vw, 320px); }
-          .scan-zone          { max-height: 260px; }
-          .scenario-btn-text  { font-size: 0.65rem; }
-          .scan-result-row    { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+          .preview-card      { height: clamp(240px, 70vw, 320px); }
+          .scan-zone         { max-height: 260px; }
+          .scenario-btn-text { font-size: 0.65rem; }
+          .scan-result-row   { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
         }
       `}} />
  
@@ -222,8 +231,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
         pt-16 sm:pt-24 md:pt-32
         pb-12 sm:pb-20 md:pb-24
         px-4 sm:px-6 md:px-8 lg:px-10
-        mx-auto w-full
-        max-w-[90rem] max-w-tv
+        mx-auto w-full max-w-[90rem] max-w-tv
         relative z-10
         text-stone-200 font-montserrat
       ">
@@ -231,13 +239,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
  
         {/* ── TITRE ── */}
         <div className="text-center mb-10 sm:mb-14 md:mb-16">
-          <h1 className="
-            title-fluid font-bold tracking-[0.12em] sm:tracking-[0.15em] mb-3 sm:mb-4
-            bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900
-            bg-clip-text text-transparent
-            drop-shadow-[0_0_30px_rgba(245,158,11,0.3)]
-            font-cinzel uppercase animate-pulse
-          ">
+          <h1 className="title-fluid font-bold tracking-[0.12em] sm:tracking-[0.15em] mb-3 sm:mb-4 bg-gradient-to-b from-amber-200 via-amber-500 to-amber-900 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(245,158,11,0.3)] font-cinzel uppercase animate-pulse">
             GLOW-ORIGAMIS
           </h1>
           <p className="subtitle-fluid text-amber-700/60 font-montserrat uppercase mb-8 sm:mb-12 px-4">
@@ -254,15 +256,13 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
           <div className="relative">
             <select
               value={selectedOrigamiId}
-              onChange={e => { setSelectedOrigamiId(e.target.value); setScanResult(null); setUploadedImage(null); setCameraError(null); }}
-              className="
-                w-full bg-[#08090a] border border-amber-500/30 hover:border-amber-500/60
-                text-amber-100 py-3 sm:py-4 px-5 sm:px-6
-                rounded-xl font-cinzel tracking-wider uppercase
-                outline-none transition-all duration-300 appearance-none cursor-pointer
-                focus:ring-1 focus:ring-amber-500/50
-                body-fluid
-              "
+              onChange={e => {
+                setSelectedOrigamiId(e.target.value);
+                setScanResult(null);
+                setUploadedImage(null);
+                setCameraError(null);
+              }}
+              className="w-full bg-[#08090a] border border-amber-500/30 hover:border-amber-500/60 text-amber-100 py-3 sm:py-4 px-5 sm:px-6 rounded-xl font-cinzel tracking-wider uppercase outline-none transition-all duration-300 appearance-none cursor-pointer focus:ring-1 focus:ring-amber-500/50 body-fluid"
             >
               {origamiModels.map(model => (
                 <option key={model.id} value={model.id} className="bg-black text-stone-200">{model.title}</option>
@@ -280,7 +280,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-12 mb-10 sm:mb-14 md:mb-16 max-w-5xl 2xl:max-w-6xl mx-auto">
           {[
             { tag: "[ TEXTURE_ET_STRUCTURE_PHYSIQUE ]", tagColor: "text-teal-400", glowColor: "bg-amber-500/5", title: "Les Spécifications du Support", content: activeOrigami.paperSpecs },
-            { tag: "[ RITUEL_DE_MANIPULATION_TRIDIMENSIONNELLE ]", tagColor: "text-purple-400", glowColor: "bg-purple-500/5", title: "Description du Processus de Pliage", content: activeOrigami.foldingGuide }
+            { tag: "[ RITUEL_DE_MANIPULATION_TRIDIMENSIONNELLE ]", tagColor: "text-purple-400", glowColor: "bg-purple-500/5", title: "Description du Processus de Pliage", content: activeOrigami.foldingGuide },
           ].map((card, i) => (
             <div key={i} className="border border-white/5 bg-[#08090a]/60 p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl relative">
               <div className={`absolute -bottom-10 right-0 w-20 h-20 sm:w-24 sm:h-24 ${card.glowColor} blur-[50px] rounded-full pointer-events-none`} />
@@ -362,15 +362,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
           <a
             href={`/${activeOrigami.downloadLink}`}
             download
-            className="
-              inline-block px-7 sm:px-10 py-3.5 sm:py-4
-              bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700
-              rounded-full text-black font-extrabold uppercase
-              tracking-[0.15em] sm:tracking-[0.2em]
-              body-fluid
-              hover:scale-105 transition-all duration-500
-              shadow-[0_0_30px_rgba(245,158,11,0.4)] border border-amber-400
-            "
+            className="inline-block px-7 sm:px-10 py-3.5 sm:py-4 bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 rounded-full text-black font-extrabold uppercase tracking-[0.15em] sm:tracking-[0.2em] body-fluid hover:scale-105 transition-all duration-500 shadow-[0_0_30px_rgba(245,158,11,0.4)] border border-amber-400"
           >
             Télécharger le Patron d'épreuve (PDF)
           </a>
@@ -404,12 +396,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
               </p>
  
               {/* Zone d'affichage */}
-              <div className="
-                border border-dashed border-white/10 bg-stone-900/40
-                rounded-2xl sm:rounded-3xl scan-zone
-                flex flex-col items-center justify-center
-                p-4 sm:p-6 text-center relative overflow-hidden flex-1
-              ">
+              <div className="border border-dashed border-white/10 bg-stone-900/40 rounded-2xl sm:rounded-3xl scan-zone flex flex-col items-center justify-center p-4 sm:p-6 text-center relative overflow-hidden flex-1">
                 {/* Overlay scanning */}
                 {isScanning && (
                   <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/90 backdrop-blur-sm">
@@ -443,13 +430,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
                     <div className="flex flex-col gap-2 sm:gap-3 items-center w-full max-w-xs">
                       <button
                         onClick={handleOpenCamera}
-                        className="
-                          w-full px-4 sm:px-6 py-2.5 sm:py-3
-                          bg-[#08090a] border border-amber-500/30 rounded-full
-                          caption-fluid text-amber-300 uppercase font-bold
-                          hover:bg-stone-800 hover:border-amber-500/60 transition-all
-                          font-montserrat flex items-center justify-center gap-2
-                        "
+                        className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-[#08090a] border border-amber-500/30 rounded-full caption-fluid text-amber-300 uppercase font-bold hover:bg-stone-800 hover:border-amber-500/60 transition-all font-montserrat flex items-center justify-center gap-2"
                       >
                         <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
@@ -459,13 +440,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
                       </button>
                       <button
                         onClick={handleFileUpload}
-                        className="
-                          w-full px-4 sm:px-6 py-2.5 sm:py-3
-                          bg-[#08090a] border border-white/10 rounded-full
-                          caption-fluid text-stone-300 uppercase font-bold
-                          hover:bg-stone-800 hover:border-white/20 transition-all
-                          font-montserrat flex items-center justify-center gap-2
-                        "
+                        className="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-[#08090a] border border-white/10 rounded-full caption-fluid text-stone-300 uppercase font-bold hover:bg-stone-800 hover:border-white/20 transition-all font-montserrat flex items-center justify-center gap-2"
                       >
                         <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
@@ -485,24 +460,19 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
                 <h4 className="label-fluid text-stone-400 font-bold uppercase tracking-widest mb-3 sm:mb-4 font-mono">CONTRÔLEUR DE SYMETRIE DU RITUEL :</h4>
                 <div className="space-y-2 sm:space-y-3 flex-1">
                   {[
-                    { key: 'perfect',   emoji: '🎯', label: 'Pliage Parfait (Anomalie 100% masquée)',        pct: '100%' },
-                    { key: 'misaligned',emoji: '⚠️', label: 'Décalage Léger (Anomalie partiellement visible)', pct: '60-65%' },
-                    { key: 'failed',    emoji: '🚨', label: 'Alignement Rompu (Dérapage géométrique)',        pct: '25-30%' },
+                    { key: 'perfect',    emoji: '🎯', label: 'Pliage Parfait (Anomalie 100% masquée)',          pct: '100%' },
+                    { key: 'misaligned', emoji: '⚠️', label: 'Décalage Léger (Anomalie partiellement visible)', pct: '60-65%' },
+                    { key: 'failed',     emoji: '🚨', label: 'Alignement Rompu (Dérapage géométrique)',         pct: '25-30%' },
                   ].map(({ key, emoji, label, pct }) => (
                     <button
                       key={key}
                       type="button"
                       onClick={() => setSelectedScenario(key as any)}
-                      className={`
-                        w-full p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left
-                        caption-fluid scenario-btn-text
-                        uppercase font-bold tracking-wider
-                        transition-all flex justify-between items-center gap-2
-                        ${selectedScenario === key
+                      className={`w-full p-3 sm:p-4 rounded-xl sm:rounded-2xl border text-left caption-fluid scenario-btn-text uppercase font-bold tracking-wider transition-all flex justify-between items-center gap-2 ${
+                        selectedScenario === key
                           ? 'border-amber-500 bg-amber-500/5 text-amber-400'
                           : 'border-white/5 bg-[#020406]/60 text-stone-500 hover:border-white/10 hover:text-stone-300'
-                        }
-                      `}
+                      }`}
                     >
                       <span className="flex items-center gap-1.5 sm:gap-2 min-w-0">
                         <span className="shrink-0">{emoji}</span>
@@ -516,14 +486,11 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
                 <button
                   onClick={handleScanAction}
                   disabled={!uploadedImage || isScanning}
-                  className={`
-                    w-full mt-4 sm:mt-6 py-3.5 sm:py-4 rounded-full uppercase tracking-widest
-                    caption-fluid font-bold transition-all duration-300
-                    ${!uploadedImage || isScanning
+                  className={`w-full mt-4 sm:mt-6 py-3.5 sm:py-4 rounded-full uppercase tracking-widest caption-fluid font-bold transition-all duration-300 ${
+                    !uploadedImage || isScanning
                       ? 'bg-stone-800 text-stone-600 border border-stone-700 cursor-not-allowed'
                       : 'bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 text-black hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(245,158,11,0.2)] border border-amber-400'
-                    }
-                  `}
+                  }`}
                 >
                   {isScanning ? 'Analyse en cours...' : "Lancer l'Analyse du Pliage"}
                 </button>
@@ -567,13 +534,7 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
         <div className="text-center mt-12 sm:mt-16">
           <button
             onClick={() => setCurrentTab('home')}
-            className="
-              px-6 sm:px-8 py-3 sm:py-3.5
-              bg-transparent border border-white/10
-              text-stone-500 hover:text-stone-300 hover:border-white/20
-              transition-all duration-500 caption-fluid font-bold uppercase tracking-widest
-              rounded-full font-montserrat
-            "
+            className="px-6 sm:px-8 py-3 sm:py-3.5 bg-transparent border border-white/10 text-stone-500 hover:text-stone-300 hover:border-white/20 transition-all duration-500 caption-fluid font-bold uppercase tracking-widest rounded-full font-montserrat"
           >
             Retourner à l'Éveil de la Matrice
           </button>
@@ -588,7 +549,6 @@ export default function OrigamiView({ setCurrentTab, isSynchronizing, syncComple
               </p>
               <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-amber-500/30 shadow-[0_0_40px_rgba(245,158,11,0.15)]">
                 <video ref={videoRef} className="w-full rounded-xl sm:rounded-2xl bg-black" autoPlay playsInline muted />
-                {/* Viseur */}
                 <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
                   <div className="w-32 h-32 sm:w-48 sm:h-48 border border-amber-500/40 rounded-lg relative">
                     <div className="absolute top-0 left-0 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-l-2 border-amber-500" />
