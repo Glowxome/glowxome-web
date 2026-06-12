@@ -114,7 +114,7 @@ export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: strin
             <div className="border border-amber-500/20 rounded-sm overflow-hidden bg-stone-900/40">
               <video
                 key={current.num}
-                src={`/mise à jour ${current.num}.mp4`}
+                src={`/Mise a jour ${current.num}.mp4`}
                 controls
                 playsInline
                 className="w-full aspect-video object-cover bg-stone-950"
