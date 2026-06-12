@@ -9,15 +9,9 @@ const TABS: { id: DemoTab; label: string; icon: string }[] = [
   { id: 'origami', label: 'Origamis', icon: '◇' },
 ];
  
-// ─── JOURNAL DES MISES À JOUR ───────────────────────────────────────────────
-// Pour ajouter une nouvelle mise à jour :
-//   1. Dépose "mise à jour N.mp4" dans /public
-//   2. Ajoute une entrée { num, date, desc } dans ce tableau
-// ─────────────────────────────────────────────────────────────────────────────
 const UPDATES: { num: number; date: string; desc: string }[] = [
   { num: 1, date: 'Juin 2024', desc: 'Première version jouable — mécanique de pliage de base et univers graphique initial.' },
 ];
-// ─────────────────────────────────────────────────────────────────────────────
  
 const ORIGAMI_VIDEOS = [
   { title: 'Origami', src: '/origami.mp4' },
@@ -43,8 +37,6 @@ function OrigamiCard({ title, src }: { title: string; src: string }) {
  
 export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: string) => void }) {
   const [activeTab, setActiveTab] = useState<DemoTab>('game');
- 
-  // Mise à jour active (la plus récente par défaut)
   const [activeUpdate, setActiveUpdate] = useState(UPDATES[UPDATES.length - 1].num);
   const current = UPDATES.find((u) => u.num === activeUpdate)!;
  
@@ -60,35 +52,35 @@ export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: strin
         <div className="mt-5 mx-auto w-16 h-px bg-amber-500/30" />
       </div>
  
-     {/* Tab nav */}
-<div className="flex justify-center mb-12 px-4">
-  {/* AJOUTEZ 'flex-wrap' ICI */}
-  <div className="relative flex flex-wrap justify-center gap-1 border border-amber-500/20 rounded-sm overflow-hidden">
-    {TABS.map((tab) => {
-      const isActive = activeTab === tab.id;
-      return (
-        <button
-          key={tab.id}
-          onClick={() => setActiveTab(tab.id)}
-          className={`relative px-4 sm:px-7 py-3 text-xs tracking-[0.25em] uppercase transition-all duration-300 ${
-            isActive
-              ? 'text-stone-950 bg-amber-500'
-              : 'text-amber-500/60 bg-transparent hover:text-amber-400 hover:bg-amber-500/8'
-          }`}
-        >
-          <span className="mr-2 opacity-70 hidden sm:inline">{tab.icon}</span>
-          {tab.label}
-        </button>
-      );
-    })}
-  </div>
-</div>
-
+      {/* Tab nav */}
+      <div className="flex justify-center mb-12 px-4">
+        <div className="relative flex flex-wrap justify-center gap-1 border border-amber-500/20 rounded-sm overflow-hidden">
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-4 sm:px-7 py-3 text-xs tracking-[0.25em] uppercase transition-all duration-300 ${
+                  isActive
+                    ? 'text-stone-950 bg-amber-500'
+                    : 'text-amber-500/60 bg-transparent hover:text-amber-400 hover:bg-amber-500/8'
+                }`}
+              >
+                <span className="mr-2 opacity-70 hidden sm:inline">{tab.icon}</span>
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+ 
+      {/* Tab content */}
+      <div className="flex-1">
+ 
         {/* ── ÉVOLUTION DU JEU ── */}
         {activeTab === 'game' && (
           <div className="animate-fade-in">
- 
-            {/* Sélecteur d'historique (affiché seulement si > 1 vidéo) */}
             {UPDATES.length > 1 && (
               <div className="flex items-center gap-2 justify-center mb-8 flex-wrap">
                 <span className="text-stone-500 text-xs tracking-widest uppercase mr-2">Historique</span>
@@ -127,8 +119,8 @@ export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: strin
                 </div>
                 <span className="text-amber-500/40 text-xs font-mono tracking-wider shrink-0">{current.date}</span>
               </div>
-            </div>
- 
+            </div> {/* FERMETURE AJOUTÉE ICI */}
+            
             {/* Message si une seule vidéo */}
             {UPDATES.length === 1 && (
               <p className="text-stone-600 text-xs text-center mt-6 tracking-wider">
