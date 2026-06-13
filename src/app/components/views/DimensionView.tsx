@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import DimensionOris from './DimensionOris'; // <--- C'EST CETTE LIGNE QUI MANQUAIT
 
 interface DimensionViewProps {
   setCurrentTab: (tab: string) => void;
@@ -15,6 +16,12 @@ export default function DimensionView({ setCurrentTab, tabId, stabilizationProgr
 
   if (!activeDimension) return null;
 
+  // --- DESIGN SPÉCIFIQUE : DIMENSION 1 (ORIS) ---
+  if (activeDimensionId === 1) {
+    return <DimensionOris onBack={() => setCurrentTab('home')} />;
+  }
+
+  // --- DESIGN GÉNÉRIQUE : DIMENSIONS 2 À 11 ---
   return (
     <section className="pt-44 pb-32 max-w-4xl mx-auto px-6 min-h-[75vh] flex flex-col items-center justify-center relative z-10 animate-fade-in text-center">
       <div className="absolute inset-0 bg-amber-500/5 blur-[120px] rounded-full scale-75" />
