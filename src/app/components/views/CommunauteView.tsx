@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from 'react';
 
-interface CommunViewProps {
-  onBack: () => void;
+interface CommunauteViewProps {
+  setCurrentTab: (tab: string) => void;
 }
 
 // ── DONNÉES COMPLÈTES ──────────────────────────────────────────────────────
@@ -37,7 +37,7 @@ const tips = [
   { avatar: "⚡", pseudo: "KrystaLux", dim: "Ignis · Dim II", eclats: 47, tip: "Combiner les missions Ignis et Oris le même jour crée un effet de synergie." },
 ];
 
-export default function CommunauteView({ onBack }: CommunViewProps) {
+export default function CommunauteView({ setCurrentTab }: CommunauteViewProps) {
   const [likedMessages, setLikedMessages] = useState<number[]>([]);
   const [email, setEmail] = useState('');
   const [newsletterSent, setNewsletterSent] = useState(false);
@@ -58,7 +58,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
     <div className="min-h-screen bg-[#08070A] text-[#E8E2D4] font-sans flex flex-col w-full">
       <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-12">
         
-        {/* HERO */}
         <header className="py-20 text-center">
             <h1 className="text-5xl sm:text-7xl md:text-9xl font-extrabold uppercase tracking-widest mb-4 text-transparent bg-clip-text bg-gradient-to-b from-[#fde68a] via-[#f59e0b] to-[#92400e] animate-[pulse_4s_ease-in-out_infinite]" style={{ filter: "drop-shadow(0 0 30px rgba(251,191,36,0.3))" }}>
                 Les Glows
@@ -66,11 +65,8 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
             <p className="text-[#8A6C2A] uppercase tracking-[0.4em] text-[0.8rem] mb-10">LA PLACE DES ÉCLAIREURS</p>
         </header>
 
-        {/* GRILLE PRINCIPALE */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 mb-12">
           <div className="xl:col-span-2 flex flex-col gap-10">
-            
-            {/* TRANSMISSIONS */}
             <section>
               <h2 className="text-[#D4A847] font-serif text-xl text-center uppercase tracking-widest mb-6">Transmissions de Keny & Béguy</h2>
               <div className="flex flex-col gap-4">
@@ -87,7 +83,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
               </div>
             </section>
 
-            {/* TCHAT */}
             <section>
               <h2 className="text-[#D4A847] font-serif text-xl text-center uppercase tracking-widest mb-6">Le Tchat des Glows</h2>
               <div className="bg-[#0E0C12] border border-[#D4A847]/10 rounded-xl overflow-hidden">
@@ -106,7 +101,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
               </div>
             </section>
             
-            {/* ASTUCES (3 COLONNES) */}
             <section>
                 <h2 className="text-[#D4A847] font-serif text-xl text-center uppercase tracking-widest mb-6">ASTUCES DES ÉCLAIREURS</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -120,7 +114,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
             </section>
           </div>
 
-          {/* COLONNE DROITE */}
           <aside className="flex flex-col gap-8">
             <section>
               <h2 className="text-[#D4A847] font-serif text-xl uppercase tracking-widest mb-5">Hall of Fame</h2>
@@ -136,7 +129,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
               </div>
             </section>
 
-            {/* GLOW-BAND OR */}
             <section className="bg-[#0E0C12] border border-[#D4A847]/10 rounded-xl p-6">
                 <p className="text-[11px] font-semibold text-[#D4A847] mb-2">Glow-Band Or · Vestige Légendaire</p>
                 <p className="text-xs text-stone-500 mb-4">Seuls les 100 Éclaireurs les plus vaillants obtiendront le Glow-Band Or. Chaque mission, chaque éclat compte.</p>
@@ -144,7 +136,6 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
                 <button className="w-full py-2 border border-[#D4A847]/25 text-[#D4A847] text-[10px] uppercase rounded-full">Rejoindre la course</button>
             </section>
 
-            {/* NEWSLETTER */}
             <section className="bg-[#0E0C12] border border-[#D4A847]/10 rounded-xl p-6">
               <h3 className="text-sm text-[#E8E2D4] mb-2">Recevoir les transmissions</h3>
               {!newsletterSent ? (
@@ -155,18 +146,16 @@ export default function CommunauteView({ onBack }: CommunViewProps) {
               ) : <p className="text-purple-400 text-xs">Signal reçu ✦</p>}
             </section>
 
-            {/* TEASER MEMBRES */}
-            <section className="bg-[#0E0C12] border border-[#D4A847]/10 rounded-xl p-6 cursor-pointer" onClick={onBack}>
+            <section className="bg-[#0E0C12] border border-[#D4A847]/10 rounded-xl p-6 cursor-pointer" onClick={() => setCurrentTab('home')}>
               <h3 className="text-sm text-[#E8E2D4] mb-2">Espace membres</h3>
               <p className="text-xs text-stone-500">Accède à tes missions, ta communauté et ton Glow-Band.</p>
             </section>
           </aside>
         </div>
 
-        {/* BOUTONS BAS DE PAGE */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 py-8 border-t border-white/5 mt-12">
             <button className="px-8 py-3.5 bg-amber-500 text-black font-bold uppercase text-xs rounded-full hover:bg-amber-400 transition-all tracking-widest">REJOINDRE LA RÉSISTANCE</button>
-            <button onClick={onBack} className="px-8 py-3.5 border border-white/10 text-white uppercase text-xs rounded-full hover:border-white/20 transition-all tracking-widest">RETOURNER À L'ÉVEIL</button>
+            <button onClick={() => setCurrentTab('home')} className="px-8 py-3.5 border border-white/10 text-white uppercase text-xs rounded-full hover:border-white/20 transition-all tracking-widest">RETOURNER À L'ÉVEIL</button>
         </div>
       </main>
     </div>
