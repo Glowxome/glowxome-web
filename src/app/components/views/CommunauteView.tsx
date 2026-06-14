@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 
-interface CommunityViewProps {
+interface CommunViewProps {
   onBack: () => void;
 }
 
@@ -37,7 +37,7 @@ const tips = [
   { avatar: "⚡", pseudo: "KrystaLux", dim: "Ignis · Dim II", eclats: 47, tip: "Combiner les missions Ignis et Oris le même jour crée un effet de synergie." },
 ];
 
-export default function CommunityView({ onBack }: CommunityViewProps) {
+export default function CommunauteView({ onBack }: CommunauteViewProps) {
   const [likedMessages, setLikedMessages] = useState<number[]>([]);
   const [email, setEmail] = useState('');
   const [newsletterSent, setNewsletterSent] = useState(false);
