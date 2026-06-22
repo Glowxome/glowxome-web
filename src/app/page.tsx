@@ -36,15 +36,19 @@ export default function App() {
     Instagram: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>,
     Facebook: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>,
     TikTok: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" /></svg>,
-    WhatsApp: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.1H12.5a10.3 10.3 0 0 1 4.5 2.5l3 1-1 3z" /></svg>
+    WhatsApp: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.1H12.5a10.3 10.3 0 0 1 4.5 2.5l3 1-1 3z" /></svg>,
+    Twitch: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/><path d="M11 11V7M16 11V7"/></svg>,
+    Discord: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M18 6c0 0-1.5-1-3-1l-1 1c-1.5 0-3 0-3 0L10 5l-1 1c-1.5 0-3 1-3 1s-2 3-2 6l1 1c0 0 1 2 4 2l1-1 2 1 1-1 2-1 1 1 4-2c0-3-2-6-2-6z"/><path d="M9 13l.5 2"/><path d="M14.5 13l-.5 2"/></svg>
   };
-
+  
   const socials = [
-    { id: 'twitter', name: 'Twitter (X)', icon: Icons.X },
-    { id: 'instagram', name: 'Instagram', icon: Icons.Instagram },
-    { id: 'facebook', name: 'Facebook', icon: Icons.Facebook },
-    { id: 'tiktok', name: 'TikTok', icon: Icons.TikTok },
-    { id: 'whatsapp', name: 'WhatsApp', icon: Icons.WhatsApp }
+    { id: 'twitter', name: 'Twitter (X)', icon: Icons.X, url: 'https://x.com/GlowXome/status/1959507227473056157' },
+    { id: 'instagram', name: 'Instagram', icon: Icons.Instagram, url: 'https://www.instagram.com/glowxome?igsh=MXg1Mm14MThobHo0OQ==' },
+    { id: 'facebook', name: 'Facebook', icon: Icons.Facebook, url: 'https://www.facebook.com/share/1KiXxrwkv6/' },
+    { id: 'tiktok', name: 'TikTok', icon: Icons.TikTok, url: 'https://www.tiktok.com/@glowxome?_r=1&_t=ZN-97OLkJdmbCA' },
+    { id: 'whatsapp', name: 'WhatsApp', icon: Icons.WhatsApp, url: 'https://whatsapp.com/channel/0029VbAso2O4tRrrFCrK7r33' },
+    { id: 'twitch', name: 'Twitch', icon: Icons.Twitch, url: 'https://www.twitch.tv/glowxome' },
+    { id: 'discord', name: 'Discord', icon: Icons.Discord, url: 'https://discord.gg/7FRAFrhF' }
   ];
 
   const triggerSync = () => {
@@ -67,21 +71,32 @@ export default function App() {
       {currentTab === 'origami' && <OrigamiView setCurrentTab={setCurrentTab} isSynchronizing={isSynchronizing} syncComplete={syncComplete} triggerSync={triggerSync} />}
       {currentTab === 'demo' && <DemoView setCurrentTab={setCurrentTab} />}
       {currentTab === 'glowbis' && <GlowbisView setCurrentTab={setCurrentTab} />}
-      {currentTab === 'communaute' && <CommunauteView setCurrentTab={setCurrentTab} />}
+      {currentTab === 'communaute' && <CommunauteView setCurrentTab={() => setCurrentTab('home')} />}
       {currentTab === 'connexion' && <ConnexionView setCurrentTab={setCurrentTab} />}
 
       <footer className="py-20 border-t border-white/5 bg-black/40 backdrop-blur-md relative z-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
-          <div className="flex gap-10 mb-12 relative">
+          <div className="flex flex-wrap justify-center gap-10 mb-12 relative">
             {socials.map((social) => (
-              <div key={social.id} className="relative flex flex-col items-center" onMouseEnter={() => setHoveredIcon(social.id)} onMouseLeave={() => setHoveredIcon(null)}>
-                <div className={`absolute -top-12 px-4 py-1.5 bg-amber-500 text-black text-[9px] uppercase tracking-widest font-bold rounded-lg transition-all duration-300 pointer-events-none ${hoveredIcon === social.id ? 'opacity-100 -translate-y-1' : 'opacity-0 translate-y-0'}`}>
+              <div 
+                key={social.id} 
+                className="relative flex flex-col items-center" 
+                onMouseEnter={() => setHoveredIcon(social.id)} 
+                onMouseLeave={() => setHoveredIcon(null)}
+              >
+                <div className={`absolute -top-12 px-4 py-1.5 bg-amber-500 text-black text-[9px] uppercase tracking-widest font-bold rounded-lg transition-all duration-300 pointer-events-none whitespace-nowrap ${hoveredIcon === social.id ? 'opacity-100 -translate-y-1' : 'opacity-0 translate-y-0'}`}>
                   {social.name}
                   <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-amber-500 rotate-45" />
                 </div>
-                <button type="button" className="p-3 border border-white/10 rounded-xl text-stone-500 hover:text-amber-500 hover:border-amber-500/50 hover:bg-amber-500/5 transition-all duration-500">
+                
+                <a 
+                  href={social.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="p-3 border border-white/10 rounded-xl text-stone-500 hover:text-amber-500 hover:border-amber-500/50 hover:bg-amber-500/5 transition-all duration-500 cursor-pointer"
+                >
                   <social.icon />
-                </button>
+                </a>
               </div>
             ))}
           </div>

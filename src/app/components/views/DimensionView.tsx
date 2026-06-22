@@ -1,6 +1,6 @@
 "use client";
-import React from 'react';
-import DimensionOris from './DimensionOris'; // <--- C'EST CETTE LIGNE QUI MANQUAIT
+import React, { useState, useEffect, useRef } from 'react';
+import DimensionOris from './DimensionOris';
 
 interface DimensionViewProps {
   setCurrentTab: (tab: string) => void;
@@ -11,20 +11,66 @@ interface DimensionViewProps {
 }
 
 export default function DimensionView({ setCurrentTab, tabId, stabilizationProgress, setStabilizationProgress, dimensionsData }: DimensionViewProps) {
+  const [hoveredDimension, setHoveredDimension] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
   const activeDimensionId = parseInt(tabId.split('-')[1], 10);
   const activeDimension = dimensionsData.find(d => d.id === activeDimensionId);
 
+  // Fonction de scroll manuel
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const amount = 300;
+      scrollRef.current.scrollBy({ left: direction === 'left' ? -amount : amount, behavior: 'smooth' });
+    }
+  };
+
+  // Scroll auto avec pause au survol (ou interaction)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        if (scrollRef.current.scrollLeft + scrollRef.current.offsetWidth >= scrollRef.current.scrollWidth) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+        }
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   if (!activeDimension) return null;
+  if (activeDimensionId === 1) return <DimensionOris onBack={() => setCurrentTab('home')} />;
 
-  // --- DESIGN SPÉCIFIQUE : DIMENSION 1 (ORIS) ---
-  if (activeDimensionId === 1) {
-    return <DimensionOris onBack={() => setCurrentTab('home')} />;
-  }
-
-  // --- DESIGN GÉNÉRIQUE : DIMENSIONS 2 À 11 ---
   return (
     <section className="pt-44 pb-32 max-w-4xl mx-auto px-6 min-h-[75vh] flex flex-col items-center justify-center relative z-10 animate-fade-in text-center">
       <div className="absolute inset-0 bg-amber-500/5 blur-[120px] rounded-full scale-75" />
+
+      {/* CARROUSEL AVEC FLÈCHES LATÉRALES */}
+      <div className="relative w-full flex items-center mb-16">
+        <button onClick={() => scroll('left')} className="absolute -left-12 p-3 text-amber-500 hover:text-white transition-colors z-50">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        </button>
+
+        <div ref={scrollRef} className="flex gap-6 overflow-x-auto py-8 cursor-grab scroll-smooth scrollbar-hide w-full px-2">
+          {dimensionsData.map((dim) => (
+            <div key={dim.id} className="relative flex-shrink-0" onMouseEnter={() => setHoveredDimension(dim.id)} onMouseLeave={() => setHoveredDimension(null)}>
+              {hoveredDimension === dim.id && (
+                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/90 text-amber-500 text-[10px] px-3 py-1 rounded border border-amber-500 uppercase tracking-widest z-50 pointer-events-none whitespace-nowrap">{dim.name}</div>
+              )}
+              <button onClick={() => setCurrentTab(`dim-${dim.id}`)} className={`w-16 h-16 rounded-full border flex items-center justify-center transition-all ${activeDimensionId === dim.id ? 'border-amber-500 bg-amber-500/20' : 'border-amber-500/20 bg-[#08090a]/80'}`}>
+                <span className="text-xl font-bold text-white">{dim.rune}</span>
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <button onClick={() => scroll('right')} className="absolute -right-12 p-3 text-amber-500 hover:text-white transition-colors z-50">
+          <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+
+      {/* VUE DÉTAILLÉE */}
       <div className="relative w-40 h-40 rounded-full border border-amber-500/20 bg-[#08090a]/80 flex items-center justify-center mb-6">
         <span className="text-6xl font-bold text-white tracking-widest">{activeDimension.rune}</span>
       </div>
