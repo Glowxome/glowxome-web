@@ -27,7 +27,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             {/* PORTAIL KICKSTARTER GAUCHE */}
             <div className="flex-shrink-0 lg:mt-12">
               <a 
-                href="https://www.kickstarter.com" 
+                href="https://www.kickstarter.com/projects/glow-origami/glow-origami-laventure-du-papier-magique" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-36 h-36 xl:w-44 xl:h-44 group hover:scale-105 active:scale-95 transition-all duration-300 animate-slide-left-loop pause-on-hover block relative"
@@ -93,7 +93,8 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             {/* PORTAIL KICKSTARTER DROIT */}
             <div className="flex-shrink-0 lg:mt-12">
               <a 
-                href="https://www.kickstarter.com" 
+                href="https://www.kickstarter.com/projects/glow-origami/glow-origami-laventure-du-papier-magique" 
+                href=" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-36 h-36 xl:w-44 xl:h-44 group hover:scale-105 active:scale-95 transition-all duration-300 animate-slide-right-loop pause-on-hover block relative"
