@@ -22,7 +22,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
 
         {/* CONTENEUR DE PRÉSENTATION ULTRA-SÉCURISÉ */}
         <div className="max-w-7xl mx-auto px-6 mb-20 relative">
-          <div className="hidden lg:flex items-start justify-center gap-6 xl:gap-12 relative z-30 w-full max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 xl:gap-12 relative z-30 w-full max-w-6xl mx-auto">
             
             {/* PORTAIL KICKSTARTER GAUCHE */}
             <div className="flex-shrink-0 lg:mt-12">
