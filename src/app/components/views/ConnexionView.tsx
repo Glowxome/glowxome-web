@@ -45,7 +45,7 @@ export default function ConnexionView({ setCurrentTab }: { setCurrentTab: (tab: 
         <div className="bg-black/70 border border-amber-500/30 p-8 rounded-3xl text-left space-y-6">
           <h2 className="text-amber-500 font-bold uppercase tracking-widest text-sm">Déjà Éclaireur</h2>
           <input type="email" placeholder="Email (Identifiant)" onChange={(e) => setEmail(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-amber-500" />
-          <input type="password" placeholder="Clé Runique" onChange={(e) => setPassword(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-amber-500" />
+          <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-amber-500" />
           <button onClick={handleSignIn} className="w-full py-4 bg-amber-600/10 border border-amber-500/30 text-amber-500 rounded-xl uppercase text-xs font-bold hover:bg-amber-600/20">Établir le Flux</button>
           
           {/* LIEN RÉCUPÉRATION */}
@@ -60,8 +60,8 @@ export default function ConnexionView({ setCurrentTab }: { setCurrentTab: (tab: 
         <div className="bg-black/70 border border-white/10 p-8 rounded-3xl text-left space-y-6">
           <h2 className="text-stone-300 font-bold uppercase tracking-widest text-sm">Nouveau Signal</h2>
           <input type="text" placeholder="Nom de code" onChange={(e) => setNomCode(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-300" />
-          <input type="email" placeholder="Adresse Éther" onChange={(e) => setEmail(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-300" />
-          <input type="password" placeholder="Clé Runique" onChange={(e) => setPassword(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-300" />
+          <input type="email" placeholder="Adresse mail" onChange={(e) => setEmail(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-300" />
+          <input type="password" placeholder="Mot de passe" onChange={(e) => setPassword(e.target.value)} className="w-full bg-stone-900/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-stone-300" />
           <button onClick={handleSignUp} className="w-full py-4 bg-transparent border border-stone-600 text-stone-400 rounded-xl uppercase text-xs font-bold hover:border-amber-500">Initialiser le Profil</button>
         </div>
       </div>

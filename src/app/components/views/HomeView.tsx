@@ -22,7 +22,7 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
 
         {/* CONTENEUR DE PRÉSENTATION ULTRA-SÉCURISÉ */}
         <div className="max-w-7xl mx-auto px-6 mb-20 relative">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 xl:gap-12 relative z-30 w-full max-w-6xl mx-auto">
+           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 xl:gap-12 relative z-30 w-full max-w-6xl mx-auto">
             
             {/* PORTAIL KICKSTARTER GAUCHE */}
             <div className="flex-shrink-0 lg:mt-12">
@@ -123,9 +123,9 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             <img src="/keny.png" alt="Keny" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(45,212,191,0.3)]" />
           </div>
           <h2 className="text-3xl font-bold tracking-widest text-teal-400 mb-2">KENY</h2>
-          <p className="text-[10px] text-teal-200/40 uppercase tracking-[0.4em] mb-6">Gardien de l'Équilibre</p>
+          <p className="text-[10px] text-teal-200/40 uppercase tracking-[0.4em] mb-6">Le Porteur de l'Effort</p>
           <p className="text-xs text-stone-500 text-center max-w-xs leading-relaxed">
-            Keny est le premier né de la lignée des Veilleurs. Porteur du fragment d'azur, il maîtrise les flux cinétiques et la géométrie sacrée.
+          Keny incarne la force du mouvement. Dans le monde réel comme dans le jeu, il canalise l'énergie physique des joueurs pour repousser les menaces. Sa mission : prouver que chaque mouvement compte.
           </p>
         </div>
 
@@ -176,9 +176,9 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             <img src="/beguy.png" alt="Béguy" className="w-80 transition-transform duration-700 group-hover:scale-105 relative z-10 drop-shadow-[0_20px_50px_rgba(168,85,247,0.3)]" />
           </div>
           <h2 className="text-3xl font-bold tracking-widest text-purple-400 mb-2">BÉGUY</h2>
-          <p className="text-[10px] text-purple-200/40 uppercase tracking-[0.4em] mb-6">Oracle du Flux</p>
+          <p className="text-[10px] text-purple-200/40 uppercase tracking-[0.4em] mb-6">L'Éclaireuse des Dimensions</p>
           <p className="text-xs text-stone-500 text-center max-w-xs leading-relaxed">
-            Béguy perçoit les vibrations des onze dimensions avant même qu'elles ne se manifestent. Sa maîtrise de l'Oracle du Flux lui permet de manipuler les brèches temporelles.
+          Béguy perçoit les signaux du monde et guide les joueurs à travers les épreuves des onze dimensions. Experte des défis de la vie de tous les jours, elle aide à résoudre les énigmes et à rétablir l'équilibre de la nature.
           </p>
         </div>
       </section>
