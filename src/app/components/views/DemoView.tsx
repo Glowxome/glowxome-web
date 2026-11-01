@@ -16,7 +16,7 @@ const UPDATES: { num: number; date: string; desc: string }[] = [
 const ORIGAMI_VIDEOS = [
   { title: 'Origami', src: '/origami.mp4' },
   { title: 'Origami 1', src: '/origami 1.mp4' },
-  { title: 'Origami 3', src: '/origami 3.mp4' },
+  { title: 'Pourquoi nos Origamis ?', src: '/Glowxome Play, Achieve, Shine!.mp4' },
 ];
  
 function OrigamiCard({ title, src }: { title: string; src: string }) {
@@ -26,7 +26,7 @@ function OrigamiCard({ title, src }: { title: string; src: string }) {
         src={src}
         controls
         playsInline
-        className="w-full aspect-video object-cover bg-stone-950"
+        className="w-full aspect-[9/16] object-contain bg-stone-950"
       />
       <div className="px-4 py-3 border-t border-amber-500/10">
         <span className="text-stone-200 text-xs tracking-widest uppercase">{title}</span>
@@ -139,7 +139,7 @@ export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: strin
                   src="/Prototype bracelet.mp4"
                   controls
                   playsInline
-                  className="w-full aspect-video object-cover bg-stone-950"
+                  className="w-full aspect-video object-contain bg-stone-950"
                 />
                 <div className="px-5 py-3 border-t border-amber-500/10">
                   <p className="text-stone-200 text-xs tracking-widest uppercase">Vue du prototype</p>
