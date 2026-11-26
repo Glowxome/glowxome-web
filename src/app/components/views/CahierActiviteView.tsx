@@ -5,6 +5,17 @@ interface CahierActiviteViewProps {
   setCurrentTab: (tab: string) => void;
 }
 
+const SOCIAL_LINKS = [
+  { name: 'YouTube', url: 'https://www.youtube.com/@Glowxome/shorts' },
+  { name: 'TikTok', url: 'https://www.tiktok.com/@glowxome?_r=1&_t=ZN-97OLkJdmbCA' },
+  { name: 'Instagram', url: 'https://www.instagram.com/glowxome?igsh=MXg1Mm14MThobHo0OQ==' },
+  { name: 'Facebook', url: 'https://www.facebook.com/share/1KiXxrwkv6/' },
+  { name: 'X (Twitter)', url: 'https://x.com/GlowXome/status/1959507227473056157' },
+  { name: 'WhatsApp', url: 'https://whatsapp.com/channel/0029VbAso2O4tRrrFCrK7r33' },
+  { name: 'Twitch', url: 'https://www.twitch.tv/glowxome' },
+  { name: 'Discord', url: 'https://discord.gg/7FRAFrhF' },
+];
+
 export default function CahierActiviteView({ setCurrentTab }: CahierActiviteViewProps) {
   const handleOpenDemoOrigamis = () => {
     setCurrentTab('demo');
@@ -63,7 +74,7 @@ export default function CahierActiviteView({ setCurrentTab }: CahierActiviteView
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <button
             type="button"
             onClick={handleOpenDemoOrigamis}
@@ -79,6 +90,35 @@ export default function CahierActiviteView({ setCurrentTab }: CahierActiviteView
           >
             Commander au prix de lancement
           </a>
+        </div>
+
+        {/* CONTACT & RÉSEAUX SOCIAUX */}
+        <div className="pt-6 border-t border-white/10">
+          <p className="text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-2 text-center">
+            Contact &amp; Réseaux Officiels GlowXome
+          </p>
+          <p className="text-xs text-stone-300 leading-relaxed mb-4 text-center">
+            Une question sur le cahier, les ateliers ou les précommandes ? Écrivez-nous à{' '}
+            <a
+              href="mailto:glowxome.glowxome@gmail.com"
+              className="text-amber-400 underline hover:text-amber-300 transition-colors"
+            >
+              glowxome.glowxome@gmail.com
+            </a>
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {SOCIAL_LINKS.map((item) => (
+              <a
+                key={item.name}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-1.5 rounded-full border border-white/15 bg-white/[0.03] hover:border-amber-500/50 hover:text-amber-400 text-stone-300 text-[11px] font-montserrat transition-all"
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
