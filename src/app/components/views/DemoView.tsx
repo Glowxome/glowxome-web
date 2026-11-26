@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
  
 type DemoTab = 'game' | 'bracelet' | 'origami';
  
@@ -15,7 +15,7 @@ const UPDATES: { num: number; date: string; desc: string }[] = [
  
 const ORIGAMI_VIDEOS = [
   { title: 'Origami', src: '/origami.mp4' },
-  { title: 'Origami 1', src: '/origami 1.mp4' },
+  { title: 'Origami 1', src: '/LE BATEAU DE FORET TRANSFORME LES ARBRES SECHE EN ARBRE FLEURIE 1.mp4' },
   { title: 'Pourquoi nos Origamis ?', src: '/Glowxome Play, Achieve, Shine!.mp4' },
 ];
  
@@ -36,9 +36,16 @@ function OrigamiCard({ title, src }: { title: string; src: string }) {
 }
  
 export default function DemoView({ setCurrentTab }: { setCurrentTab: (tab: string) => void }) {
-  const [activeTab, setActiveTab] = useState<DemoTab>('game');
+  const [activeTab, setActiveTab] = useState<DemoTab>('origami');
   const [activeUpdate, setActiveUpdate] = useState(UPDATES[UPDATES.length - 1].num);
   const current = UPDATES.find((u) => u.num === activeUpdate)!;
+  useEffect(() => {
+    const handleOpenOrigamis = () => {
+      setActiveTab('origami');
+    };
+    window.addEventListener('glowxome:open-demo-origamis', handleOpenOrigamis);
+    return () => window.removeEventListener('glowxome:open-demo-origamis', handleOpenOrigamis);
+  }, []);
  
   return (
     <section className="pt-36 pb-32 max-w-5xl mx-auto px-6 min-h-[75vh] flex flex-col relative z-10 animate-fade-in">
