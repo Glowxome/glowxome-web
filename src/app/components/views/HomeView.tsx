@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 
 interface HomeViewProps {
   setCurrentTab: (tab: string) => void;
@@ -9,8 +9,6 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimensionsData }: HomeViewProps) {
-  const [isCahierModalOpen, setIsCahierModalOpen] = useState(false);
-
   return (
     <>
       {/* HEADER SACRÉ */}
@@ -22,14 +20,14 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
           LE RÉVEIL COMMENCE
         </p>
 
-        {/* BOUTON BANNIÈRE : CAHIER D'ACTIVITÉ GLOW ORIGAMIS */}
+        {/* BOUTON BANNIÈRE : LIEN VERS LA PAGE CAHIER D'ACTIVITÉ */}
         <div className="max-w-6xl mx-auto px-6 mb-10 relative z-30">
           <button
             type="button"
-            onClick={() => setIsCahierModalOpen(true)}
+            onClick={() => setCurrentTab('cahier')}
             className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-red-800 via-red-600 to-red-800 hover:from-red-700 hover:via-red-500 hover:to-red-700 border-2 border-sky-400/80 hover:border-amber-400 text-white font-montserrat font-bold text-sm md:text-xl tracking-wide shadow-[0_0_25px_rgba(220,38,38,0.45)] hover:shadow-[0_0_35px_rgba(245,158,11,0.6)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 cursor-pointer flex items-center justify-center gap-3"
           >
-            <span>Pour plus d’information sur le cahier d’activité glow origamis (disponibilité, tutos..)</span>
+            <span>Découvrir le cahier d’activité Glow-Origamis (tarif de lancement, tutos vidéo…)</span>
           </button>
         </div>
 
@@ -226,81 +224,6 @@ export default function HomeView({ setCurrentTab, isMuted, setIsMuted, dimension
             <h2 className="font-cinzel text-amber-500/50 text-xl tracking-[0.3em] uppercase">Les 11 Dimensions de GlowXome</h2>
         </div>
       </section>
-
-      {/* MODALE D'INFORMATION : CAHIER D'ACTIVITÉ GLOW-ORIGAMIS */}
-      {isCahierModalOpen && (
-        <div 
-          onClick={() => setIsCahierModalOpen(false)}
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
-        >
-          <div 
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-3xl bg-[#08090a] border border-amber-500/40 rounded-3xl p-6 md:p-10 shadow-[0_0_60px_rgba(245,158,11,0.25)] text-left my-8"
-          >
-            <button
-              type="button"
-              onClick={() => setIsCahierModalOpen(false)}
-              className="absolute top-5 right-5 w-10 h-10 rounded-full border border-white/10 bg-white/5 hover:bg-amber-500 hover:text-black text-stone-400 flex items-center justify-center transition-all duration-300 cursor-pointer"
-              aria-label="Fermer"
-            >
-              ✕
-            </button>
-
-            <p className="text-[10px] text-amber-500 uppercase tracking-[0.4em] mb-2">ᚱ Artefact Officiel GlowXome ᛗ</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wider mb-4">
-              Cahier d’Activité Glow-Origamis
-            </h2>
-            <p className="text-xs md:text-sm text-stone-300 font-montserrat leading-relaxed mb-6">
-              Retrouvez ici toutes les informations sur le cahier d’activité Glow-Origamis : disponibilité, tutoriels vidéo de pliage et contenu dédié à l’univers de Keny et Béguy.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-amber-500/20">
-                <p className="text-[10px] text-amber-400 uppercase tracking-widest font-bold mb-1">Disponibilité</p>
-                <p className="text-xs text-stone-300 leading-relaxed">
-                  Pré-lancement et suivi de disponibilité via la campagne Kickstarter et les événements GlowXome.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-teal-500/20">
-                <p className="text-[10px] text-teal-400 uppercase tracking-widest font-bold mb-1">Tutos Vidéo</p>
-                <p className="text-xs text-stone-300 leading-relaxed">
-                  Accédez directement aux 3 vidéos d’origamis dans l’onglet Origamis de l’Espace Démo.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white/[0.03] border border-purple-500/20">
-                <p className="text-[10px] text-purple-400 uppercase tracking-widest font-bold mb-1">Contenu</p>
-                <p className="text-xs text-stone-300 leading-relaxed">
-                  Modèles d’origamis, défis éducatifs et liens avec les 11 dimensions du jeu GlowXome.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-end items-center">
-              <button
-                type="button"
-                onClick={() => {
-                  setIsCahierModalOpen(false);
-                  setCurrentTab('demo');
-                  setTimeout(() => {
-                    window.dispatchEvent(new CustomEvent('glowxome:open-demo-origamis'));
-                  }, 50);
-                }}
-                className="w-full sm:w-auto px-6 py-3 rounded-full border border-amber-500/40 text-amber-400 hover:bg-amber-500/10 text-xs uppercase tracking-widest font-bold text-center transition-all cursor-pointer"
-              >
-                Voir un aperçu tuto vidéo
-              </button>
-              <a
-                href="https://www.kickstarter.com/projects/glow-origami/glow-origami-laventure-du-papier-magique"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto px-8 py-3 rounded-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-black text-xs uppercase tracking-widest font-bold text-center hover:scale-105 transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-              >
-                Voir sur Kickstarter
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

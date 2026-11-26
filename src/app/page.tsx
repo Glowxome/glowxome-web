@@ -10,6 +10,7 @@ import GlowbisView from './components/views/GlowbisView';
 import CommunauteView from './components/views/CommunauteView';
 import ConnexionView from './components/views/ConnexionView';
 import OrigamiView from './components/views/OrigamiView';
+import CahierActiviteView from './components/views/CahierActiviteView';
 
 export default function App() {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
@@ -73,6 +74,7 @@ export default function App() {
       {currentTab === 'glowbis' && <GlowbisView setCurrentTab={setCurrentTab} />}
       {currentTab === 'communaute' && <CommunauteView setCurrentTab={() => setCurrentTab('home')} />}
       {currentTab === 'connexion' && <ConnexionView setCurrentTab={setCurrentTab} />}
+      {currentTab === 'cahier' && <CahierActiviteView setCurrentTab={setCurrentTab} />}
 
       <footer className="py-20 border-t border-white/5 bg-black/40 backdrop-blur-md relative z-10">
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
